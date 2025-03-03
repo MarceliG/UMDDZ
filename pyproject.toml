@@ -1,0 +1,117 @@
+[tool.poetry]
+name = "uczenie-maszynowe-dla-danych-zlozonych"
+version = "0.1.0"
+description = "Skin cancer image classifier"
+authors = ["Adam Wawrzyniak, Marceli Górski"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "^2.2.3"
+scikit-learn = "^1.6.1"
+torch = "^2.6.0"
+transformers = {version = "^4.49.0", extras = ["torch"]}
+datasets = "^3.3.2"
+numpy = "^2.2.3"
+tqdm = "^4.67.1"
+pyarrow = "^19.0.1"
+requests = "^2.32.3"
+python-decouple = "^3.8"
+accelerate = "1.4.0"
+huggingface-hub = "0.29.1"
+
+[tool.poetry.dev-dependencies]
+ruff = "^0.7.0"
+mypy = "^1.12.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+mypy_path = "src"
+ignore_missing_imports = true
+allow_redefinition = true
+disallow_untyped_defs = true
+disable_error_code = ["var-annotated"]
+
+[tool.ruff]
+src = ["src"]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    "builtins.pyi",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+# Same as Black.
+line-length = 120
+indent-width = 4
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ANN204",   # Ignore return value in __init__
+    "COM812",   # Ignore trailing comments should have at least two spaces before the `#`.
+    "CPY001",
+    "G004",     # Allow using of f-strings to format logging messages
+    "D100",     # Ignore missing docstring in public modules.
+    "D103",
+    "D101",     # Ignore missing docstring in public classes.
+    "D203",     # Ignore one blank line required before class docstring.
+    "D212",     # Ignore multi-line docstring should start on the first line.
+    "D413",     # Ignore missing blank line after last section of a docstring.
+    "E501",     # Ignore long lines (lines exceeding 120 characters).
+    "ERA001",   # Ignore commented a few lines.
+    "FA102",    # Checks for uses of PEP 585- and PEP 604-style type annotations.
+    "FBT",      # Flake8-boolean-trap 
+    "FIX002",   # Ignore contains todo.
+    "ISC001",   # Ignore subprocess.run used without `check=True`.
+    "PD002",    # Allow using inplace=True.
+    "PD901",    # Derived from the pandas-vet linter.
+    "PLR0913",  # To many arguments.
+    "PLR2004",  # Allow magic value comparison.
+    "PTH",      # Ignore Path.
+    "TD",       # Ignore missing-todo informations.
+    ]
+unfixable = ["B"]
+fixable = ["ALL"]
+
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402", "D104", "F401"]
+"**/{tests,docs,tools}/*" = ["E402"]
