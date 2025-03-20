@@ -1,4 +1,5 @@
 from src import (
+    analysis_dataset,
     evaluate_model,
     load_dataset_from_disk,
     load_skin_cancer_dataset,
@@ -19,6 +20,10 @@ def main() -> None:
         save_dataset_to_disk(dataset, FilePath.datasets_skin_cancer)
 
     dataset = load_dataset_from_disk(FilePath.datasets_skin_cancer)
+
+    if args.analysis_dataset:
+        logger.info("Analysis dataset...")
+        analysis_dataset(dataset)
 
     if args.preprocessing:
         logger.info("Preprocessing dataset...")

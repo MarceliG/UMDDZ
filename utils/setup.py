@@ -7,4 +7,5 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--preprocessing", "-p", action="store_true", help="Preprocess dataset")
     parser.add_argument("--train", "-t", action="store_true", help="Train model")
     parser.add_argument("--predict", "-pred", action="store_true", help="Make predictions")
+    parser.add_argument("--analysis-dataset", "-ad", action="store_true", help="Make dataset analysis")
     return parser.parse_args()
