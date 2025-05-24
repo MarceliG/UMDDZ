@@ -14,16 +14,17 @@ from utils import FilePath, logger, parse_args
 def main() -> None:
     logger.info("Start application")
     args = parse_args()
+    dataset = None
 
     if args.download_dataset:
         logger.info("Downloading dataset...")
         dataset = load_skin_cancer_dataset()
         save_dataset_to_disk(dataset, FilePath.datasets_skin_cancer)
-
-    dataset = load_dataset_from_disk(FilePath.datasets_skin_cancer)
+    else:
+        dataset = load_dataset_from_disk(FilePath.datasets_skin_cancer)
 
     if args.analysis_dataset:
-        logger.info("Analysis dataset...")
+        logger.info("Analyzing dataset...")
         analysis_dataset(dataset)
 
     if args.preprocessing:
@@ -31,20 +32,20 @@ def main() -> None:
         dataset = process_dataset(dataset)
         save_dataset_to_disk(dataset, FilePath.dataset_preprocessed_skin_cancer)
 
-    if args.train:
+    if args.train or args.evaluate or args.predict:
         preprocessed_dataset = load_dataset_from_disk(FilePath.dataset_preprocessed_skin_cancer)
-        logger.info("Training model...")
-        train_model(preprocessed_dataset)
 
-    if args.evaluate:
-        logger.info("Making evaluation...")
-        preprocessed_dataset = load_dataset_from_disk(FilePath.dataset_preprocessed_skin_cancer)
-        evaluate_model(preprocessed_dataset)
+        if args.train:
+            logger.info("Training model...")
+            train_model(preprocessed_dataset)
 
-    if args.predict:
-        logger.info("Making predictions...")
-        preprocessed_dataset = load_dataset_from_disk(FilePath.dataset_preprocessed_skin_cancer)
-        predict_random_sample(preprocessed_dataset)
+        if args.evaluate:
+            logger.info("Evaluating model...")
+            evaluate_model(preprocessed_dataset)
+
+        if args.predict:
+            logger.info("Making predictions...")
+            predict_random_sample(preprocessed_dataset)
 
     logger.info("Finish application")
 
