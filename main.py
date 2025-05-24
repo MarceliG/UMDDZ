@@ -3,6 +3,7 @@ from src import (
     evaluate_model,
     load_dataset_from_disk,
     load_skin_cancer_dataset,
+    predict_random_sample,
     process_dataset,
     save_dataset_to_disk,
     train_model,
@@ -35,10 +36,15 @@ def main() -> None:
         logger.info("Training model...")
         train_model(preprocessed_dataset)
 
+    if args.evaluate:
+        logger.info("Making evaluation...")
+        preprocessed_dataset = load_dataset_from_disk(FilePath.dataset_preprocessed_skin_cancer)
+        evaluate_model(preprocessed_dataset)
+
     if args.predict:
         logger.info("Making predictions...")
         preprocessed_dataset = load_dataset_from_disk(FilePath.dataset_preprocessed_skin_cancer)
-        evaluate_model(preprocessed_dataset)
+        predict_random_sample(preprocessed_dataset)
 
     logger.info("Finish application")
 

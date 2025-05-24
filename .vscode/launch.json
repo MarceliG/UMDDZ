@@ -13,8 +13,8 @@
             "env": {
                 "PYTHONPATH": "${workspaceFolder}"
             },
-            // "args": ["--download-dataset", "--preprocessing", "--train", "--predict", "--analysis-dataset"] 
-            "args": ["-ad"] 
+            // "args": ["--download-dataset", "--preprocessing", "--train", "--predict", "--evaluate", "--analysis-dataset"] 
+            "args": ["--predict"] 
         }
     ]
 }

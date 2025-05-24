@@ -1,3 +1,5 @@
+import os
+
 import torch
 from datasets import DatasetDict
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
@@ -30,10 +32,21 @@ def evaluate_model(preproced_dataset: DatasetDict) -> None:
             predicted_labels.append(predicted_label)
 
     accuracy = accuracy_score(true_labels, predicted_labels)
+    class_report = classification_report(true_labels, predicted_labels, digits=4)
+    conf_matrix = confusion_matrix(true_labels, predicted_labels)
+
     logger.info(f"Accuracy: {accuracy:.4f}")
+    logger.info("\nClassification Report:\n" + class_report)
+    logger.info("\nConfusion Matrix:\n" + str(conf_matrix))
 
-    logger.info("\nClassification Report:")
-    logger.info(classification_report(true_labels, predicted_labels, digits=4))
+    # Save to FilePath.evaluation
+    os.makedirs(FilePath.evaluation, exist_ok=True)
+    eval_path = os.path.join(FilePath.evaluation, "evaluation_report.txt")
+    with open(eval_path, "w") as f:
+        f.write(f"Accuracy: {accuracy:.4f}\n\n")
+        f.write("Classification Report:\n")
+        f.write(class_report + "\n\n")
+        f.write("Confusion Matrix:\n")
+        f.write(str(conf_matrix) + "\n")
 
-    logger.info("\nConfusion Matrix:")
-    logger.info(confusion_matrix(true_labels, predicted_labels))
+    logger.info(f"Evaluation results saved to: {eval_path}")

@@ -12,6 +12,8 @@ class FilePath:
     model_vit_skin_cancer = os.path.join(models, "vit_skin_cancer")
     plots = os.path.join(data_path, "plots")
     results = os.path.join(data_path, "results")
+    evaluation = os.path.join(results, "evaluation")
+    predictions = os.path.join(results, "predictions")
     classification_report = os.path.join(results, "classification_reports")
 
     # files
@@ -26,6 +28,8 @@ class FilePath:
         dataset_preprocessed_skin_cancer,
         plots,
         results,
+        evaluation,
+        predictions,
         classification_report,
     ]:
         if not os.path.exists(directory):

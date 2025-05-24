@@ -33,6 +33,7 @@ class DatasetAnalyzer:
                 df[mapped_label].value_counts().plot(kind="bar")
 
                 plt.title(f"Label distribution of {mapped_label} in {split}")
+                plt.grid(axis="y", linestyle="--", alpha=0.7)
                 plt.xlabel(mapped_label)
                 plt.ylabel("Count")
                 plt.xticks(rotation=45, ha="right")
@@ -78,6 +79,7 @@ class DatasetAnalyzer:
 
                     plt.legend()
                     plt.title(f"Histogram of {column} in {split}")
+                    plt.grid(axis="y", linestyle="--", alpha=0.7)
                     plt.xlabel(column)
                     plt.ylabel("Frequency")
                     plt.xticks(rotation=45, ha="right")
@@ -94,6 +96,7 @@ class DatasetAnalyzer:
             grouped = df.groupby(["dx", "localization"]).size().unstack(fill_value=0)
             grouped.T.plot(kind="bar", stacked=True, figsize=(12, 6))
             plt.title(f"Skin Cancer Distribution in {split}")
+            plt.grid(axis="y", linestyle="--", alpha=0.7)
             plt.xlabel("Body Localization")
             plt.ylabel("Count")
             plt.xticks(rotation=45, ha="right")
@@ -113,6 +116,7 @@ class DatasetAnalyzer:
                 plt.hist(subset["age"].dropna(), bins=20, alpha=0.5, label=dx_type)
 
             plt.title(f"Distribution of Skin Cancer Types by Age in {split}")
+            plt.grid(axis="y", linestyle="--", alpha=0.7)
             plt.xlabel("Age")
             plt.ylabel("Count")
             plt.legend(title="Cancer Type")
